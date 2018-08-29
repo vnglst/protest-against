@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Protesting has never been so easy and fun!",
   "homepage": "https://protest-against.now.sh",
+  "license": "MIT",
   "browserslist": [
     "> 1%",
     "last 2 versions"
@@ -19,11 +20,10 @@
     ]
   },
   "scripts": {
-    "start": "run-p serve watch",
+    "start": "run-p watch serve ",
     "now-start": "node server.js",
     "now-build": "echo $0",
-    "deploy": "yarn build; now deploy --public",
-    "alias": "now alias",
+    "deploy": "yarn build; now deploy --public; now alias; now rm protest-against --safe",
     "build": "NODE_ENV=production webpack -p",
     "watch": "NODE_ENV=development webpack -w",
     "serve": "nodemon server.js",

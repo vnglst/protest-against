@@ -3,24 +3,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
 const PROD = process.env.NODE_ENV === 'production'
 const DEV = process.env.NODE_ENV === 'development'
 
 const copyFiles = [
   { from: './src/media/', to: './media' },
-  { from: './src/images/', to: './images' },
-  { from: './src/favicon.ico', to: './' },
+  { from: './src/images/', to: './images' }
 ]
 
 const baseWebpack = {
   entry: {
-    app: './src/app.js',
+    app: './src/app.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
@@ -30,13 +27,13 @@ const baseWebpack = {
           'style-loader',
           {
             loader: 'css-loader',
-            options: { importLoaders: 1 },
+            options: { importLoaders: 1 }
           },
           'postcss-loader',
           {
-            loader: 'sass-loader',
-          },
-        ],
+            loader: 'sass-loader'
+          }
+        ]
       },
       {
         test: /\.js$/,
@@ -44,30 +41,27 @@ const baseWebpack = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env'],
-          },
-        },
-      },
-    ],
+            presets: ['env']
+          }
+        }
+      }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       hash: true,
-      template: './src/index.html',
+      template: './src/index.html'
     }),
-    new CopyWebpackPlugin(copyFiles),
-  ],
+    new CopyWebpackPlugin(copyFiles)
+  ]
 }
 
 if (PROD) {
   baseWebpack.plugins.push(new webpack.optimize.UglifyJsPlugin({}))
-  baseWebpack.plugins.push(
-    new BundleAnalyzerPlugin({ analyzerMode: 'disabled' }),
-  )
 }
 
 if (DEV) {
@@ -76,7 +70,7 @@ if (DEV) {
     compress: true,
     open: true,
     host: '0.0.0.0',
-    disableHostCheck: true,
+    disableHostCheck: true
   }
 }
 
