@@ -61,7 +61,7 @@ const generateProtesters = ({ protesters, joined }) => {
   const parent = document.getElementById('protesters')
   parent.innerHTML = ''
   protesters.forEach(protester => {
-    const { id } = protester
+    const { id, ip } = protester
     const child = generateProtesterEl(id)
     if (id === joined) {
       child.classList.add('slide-in-right')
@@ -71,10 +71,12 @@ const generateProtesters = ({ protesters, joined }) => {
     }
     if (id === myId) {
       child.classList.add('current-user')
-      const label = document.createElement('p')
-      label.innerHTML = "that's you"
-      child.appendChild(label)
     }
+    const label = id === myId ? "that's you" : ip
+    const labelEl = document.createElement('p')
+    labelEl.textContent = label
+    child.appendChild(labelEl)
+
     parent.appendChild(child)
   })
 }
