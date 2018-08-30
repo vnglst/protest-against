@@ -1,14 +1,24 @@
 import io from 'socket.io-client'
+import qs from 'query-string'
+import validator from 'validator'
 
 export const pre = c => (c === 1 ? 'is' : 'are')
 export const title = c => (c === 1 ? 'person' : 'people')
 
 const myId = new Date().getTime()
 const socket = io()
+const query = qs.parse(window.location.search).topic || 'world hunger'
+// FIXME: do validation of server + client via same service
+const topic = validator.isAlpha(query) ? query : 'world hunger'
 
 export const initProtest = () => {
   socket.on('connect', () => {
-    socket.emit('add protester', myId)
+    socket.emit('add protester', {
+      id: myId,
+      topic: topic
+    })
+    const topicEl = document.getElementById('topic')
+    topicEl.textContent = topic.toUpperCase()
   })
 
   socket.on('protesting', ({ id }) => {
@@ -22,11 +32,6 @@ export const initProtest = () => {
   })
 
   socket.on('protester joined', ({ id, protesters }) => {
-    updateCount(protesters.length)
-    generateProtesters({ protesters, joined: id })
-  })
-
-  socket.on('protester left', ({ id, protesters }) => {
     updateCount(protesters.length)
     generateProtesters({ protesters, joined: id })
   })

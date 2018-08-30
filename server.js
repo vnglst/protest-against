@@ -3,6 +3,7 @@ const path = require('path')
 const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
+const validator = require('validator')
 
 const DIST_DIR = path.join(__dirname, 'dist')
 
@@ -16,7 +17,7 @@ const getCountryFromHeaders = headers => {
   return country
 }
 
-let protesters = []
+const topics = {}
 
 io.on('connection', socket => {
   let protesterAdded = false
@@ -24,35 +25,40 @@ io.on('connection', socket => {
   const ip = getIpFromHandshake(socket.handshake)
   const country = getCountryFromHeaders(socket.handshake.headers)
 
-  socket.on('add protester', id => {
+  socket.on('add protester', ({ id, topic: dirtyTopic }) => {
+    // FIXME: do validation of server + client via same service
+    const topic = validator.isAlpha(dirtyTopic) ? dirtyTopic : 'world-hunger'
+    // FIXME: this 👇 is stupid, refactor
     if (protesterAdded) return
-    protesters.push({ id, ip, country })
+    if (topics[topic] === undefined) topics[topic] = {}
+    if (topics[topic].protesters === undefined) topics[topic].protesters = []
+    topics[topic].protesters.push({ id, ip, country })
     protesterAdded = true
-    socket.id = id
-    socket.emit('login', {
-      protesters
-    })
-    socket.broadcast.emit('protester joined', {
+    socket.protesterId = id
+    socket.topic = topic
+    socket.join(topic)
+    io.to(socket.topic).emit('protester joined', {
       id: socket.id,
-      protesters
+      protesters: topics[topic].protesters
     })
   })
 
   socket.on('protesting', () => {
-    socket.broadcast.emit('protesting', {
-      id: socket.id
+    io.to(socket.topic).emit('protesting', {
+      id: socket.protesterId
     })
   })
 
   socket.on('disconnect', () => {
     if (protesterAdded) {
-      const index = protesters.findIndex(p => p.id === socket.id)
+      const { protesters } = topics[socket.topic]
+      const index = protesters.findIndex(p => p.id === socket.protesterId)
       if (index > -1) {
         protesters.splice(index, 1)
       }
 
-      socket.broadcast.emit('protester left', {
-        id: socket.id,
+      socket.in(socket.topic).emit('protester left', {
+        id: socket.protesterId,
         protesters
       })
     }
