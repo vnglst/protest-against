@@ -12,7 +12,9 @@ export const initProtest = () => {
   })
 
   socket.on('protesting', ({ id }) => {
-    const activeProtesterEl = document.getElementById(id)
+    const activeProtesterEl = document
+      .getElementById(id)
+      .getElementsByTagName('svg')[0]
     activeProtesterEl.classList.add('shake-vertical')
     setTimeout(() => {
       activeProtesterEl.classList.remove('shake-vertical')

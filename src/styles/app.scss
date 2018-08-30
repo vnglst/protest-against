@@ -1,0 +1,43 @@
+$button-background: $red;
+$button-color: $blue;
+$button-color-dark: darken($button-color, 5%);
+
+button {
+  font-family: 'Comfortaa', cursive;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 0;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid $button-color;
+  cursor: pointer;
+  box-shadow: 0px 5px 0px 0px $button-color-dark, 0 12px 5px #000;
+  transition: all 0.1s ease-in-out;
+  background-color: $button-background;
+  color: $gray-white;
+}
+
+button:hover {
+  top: 1px;
+  box-shadow: 0px 4px 0px 0px $button-color-dark, 0 11px 5px #000;
+}
+
+button:active {
+  top: 10px;
+  box-shadow: 0px 2px 0px 0px $button-color-dark, 0 9px 5px #000;
+}
+
+button:focus {
+  outline: 0;
+}
+
+a {
+  color: $blue;
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
+}
