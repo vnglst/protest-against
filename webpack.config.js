@@ -2,6 +2,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const PROD = process.env.NODE_ENV === 'production'
 const DEV = process.env.NODE_ENV === 'development'
@@ -12,20 +14,21 @@ const copyFiles = [
 ]
 
 const baseWebpack = {
+  mode: 'development',
   module: {
     rules: [
       {
-        test: /\.scss/,
+        test: /\.(css|scss)$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoaders: 1 }
+            options: {
+              sourceMap: true
+            }
           },
-          'postcss-loader',
-          {
-            loader: 'sass-loader'
-          }
+          'sass-loader',
+          'postcss-loader'
         ]
       },
       {
@@ -45,6 +48,7 @@ const baseWebpack = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
     new CleanWebpackPlugin(['dist']),
+    new MiniCssExtractPlugin({}),
     new HtmlWebpackPlugin({
       hash: true,
       template: './src/index.html'
@@ -54,6 +58,7 @@ const baseWebpack = {
 }
 
 if (PROD) {
+  baseWebpack.mode = 'production'
   baseWebpack.optimization = {
     minimizer: [
       new UglifyJsPlugin({
@@ -61,12 +66,14 @@ if (PROD) {
         uglifyOptions: {
           compress: true
         }
-      })
+      }),
+      new OptimizeCSSAssetsPlugin({})
     ]
   }
 }
 
 if (DEV) {
+  baseWebpack.devtool = 'source-map'
   baseWebpack.devServer = {
     inline: true,
     host: 'localhost',

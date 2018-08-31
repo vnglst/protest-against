@@ -24,10 +24,10 @@
     "now-start": "node server.js",
     "now-build": "echo $0",
     "deploy": "yarn build; now deploy --public; now alias; now rm protest-against --safe",
-    "build": "NODE_ENV=production webpack --mode production",
-    "build:stats": "NODE_ENV=production webpack --mode production --json > stats.json",
+    "build": "NODE_ENV=production webpack",
+    "build:stats": "NODE_ENV=production webpack --json > stats.json",
     "build:analyse": "yarn build:stats; webpack-bundle-analyzer stats.json",
-    "watch": "NODE_ENV=development webpack-dev-server --mode development --hot --inline",
+    "watch": "NODE_ENV=development webpack-dev-server --hot --inline",
     "serve": "nodemon server.js",
     "lint": "eslint ./src/",
     "format": "prettier --write '**/*.{js,css,md}'"
