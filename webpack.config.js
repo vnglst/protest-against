@@ -68,9 +68,16 @@ if (DEV) {
   baseWebpack.devServer = {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
+    inline: true,
+    hot: true,
     open: true,
-    host: '0.0.0.0',
-    disableHostCheck: true
+    host: 'localhost',
+    disableHostCheck: true,
+    proxy: {
+      '/socket.io': {
+        target: 'http://localhost:3000'
+      }
+    }
   }
 }
 
