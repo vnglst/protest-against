@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 import qs from 'query-string'
-import validator from 'validator'
+import isAlpha from 'validator/lib/isAlpha'
 import { Howl } from 'howler'
 import protesterSvg from './protesterSvg'
 
@@ -11,7 +11,7 @@ const myId = new Date().getTime()
 const socket = io()
 const query = qs.parse(window.location.search).topic || 'world hunger'
 // FIXME: do validation of server + client via same service
-const topic = validator.isAlpha(query) ? query : 'world hunger'
+const topic = isAlpha(query) ? query : 'world hunger'
 
 const booSound = new Howl({
   src: ['media/boo.mp3']
