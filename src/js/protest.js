@@ -79,7 +79,7 @@ const generateProtesters = ({ protesters, joined }) => {
     if (id === myId) {
       child.classList.add('current-user')
     }
-    const label = id === myId ? "that's you!" : 'anonymous'
+    const label = id === myId ? "that's you" : 'anonymous'
     const labelEl = document.createElement('p')
     labelEl.textContent = label
     child.appendChild(labelEl)

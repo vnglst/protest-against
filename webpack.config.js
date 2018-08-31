@@ -1,8 +1,8 @@
-const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const PROD = process.env.NODE_ENV === 'production'
 const DEV = process.env.NODE_ENV === 'development'
 
@@ -12,13 +12,6 @@ const copyFiles = [
 ]
 
 const baseWebpack = {
-  entry: {
-    app: './src/app.js'
-  },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js'
-  },
   module: {
     rules: [
       {
@@ -61,18 +54,22 @@ const baseWebpack = {
 }
 
 if (PROD) {
-  baseWebpack.plugins.push(new webpack.optimize.UglifyJsPlugin({}))
+  baseWebpack.optimization = {
+    minimizer: [
+      new UglifyJsPlugin({
+        sourceMap: true,
+        uglifyOptions: {
+          compress: true
+        }
+      })
+    ]
+  }
 }
 
 if (DEV) {
   baseWebpack.devServer = {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
     inline: true,
-    hot: true,
-    open: true,
     host: 'localhost',
-    disableHostCheck: true,
     proxy: {
       '/socket.io': {
         target: 'http://localhost:3000'
