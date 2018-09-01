@@ -4,9 +4,9 @@ const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const validator = require('validator')
-const TopicsDB = require('./TopicsDB')
+const TopicsDB = require('./topics-db')
 
-const DIST_DIR = path.join(__dirname, 'dist')
+const DIST_DIR = path.join(__dirname, '..', 'dist')
 const DEFAULT_TOPIC = 'world-hunger'
 
 const db = new TopicsDB(DEFAULT_TOPIC)

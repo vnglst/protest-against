@@ -15,21 +15,21 @@
   "now": {
     "alias": "protest-against",
     "files": [
-      "server.js",
+      "server",
       "dist"
     ]
   },
   "scripts": {
     "start": "run-p serve watch",
-    "now-start": "node server.js",
+    "now-start": "node ./server/server.js",
     "now-build": "echo $0",
     "deploy": "yarn build; now deploy --public; now alias; now rm protest-against --safe",
     "build": "NODE_ENV=production webpack",
     "build:stats": "NODE_ENV=production webpack --json > stats.json",
     "build:analyze": "yarn build:stats; webpack-bundle-analyzer stats.json",
     "watch": "NODE_ENV=development webpack-dev-server --hot --inline",
-    "serve": "nodemon server.js",
-    "lint": "eslint ./src/",
+    "serve": "nodemon ./server/server.js",
+    "lint": "eslint **/*.js",
     "format": "prettier --write '**/*.{js,css,md}'"
   },
   "dependencies": {

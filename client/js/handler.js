@@ -1,5 +1,5 @@
 import { Howl } from 'howler'
-import protesterSvg from './protesterSvg'
+import protesterSvg from './protester-svg'
 import qs from 'query-string'
 import isAlpha from 'validator/lib/isAlpha'
 
@@ -44,7 +44,6 @@ export default class Handler {
   }
 
   updateApp({ id, protesters }) {
-    console.log(protesters)
     this.renderProtesterCount(protesters.length)
     this.renderProtesters({ protesters, joined: id })
   }

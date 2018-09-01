@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -9,12 +10,19 @@ const PROD = process.env.NODE_ENV === 'production'
 const DEV = process.env.NODE_ENV === 'development'
 
 const copyFiles = [
-  { from: './src/media/', to: './media' },
-  { from: './src/images/', to: './images' }
+  { from: './client/media/', to: './media' },
+  { from: './client/images/', to: './images' }
 ]
 
 const baseWebpack = {
   mode: 'development',
+  entry: {
+    app: './client/index.js'
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js'
+  },
   module: {
     rules: [
       {
@@ -51,7 +59,7 @@ const baseWebpack = {
     new MiniCssExtractPlugin({}),
     new HtmlWebpackPlugin({
       hash: true,
-      template: './src/index.html'
+      template: './client/index.html'
     }),
     new CopyWebpackPlugin(copyFiles)
   ]
