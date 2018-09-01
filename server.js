@@ -4,42 +4,35 @@ const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const validator = require('validator')
+const TopicsDB = require('./TopicsDB')
 
 const DIST_DIR = path.join(__dirname, 'dist')
+const DEFAULT_TOPIC = 'world-hunger'
 
-const getIpFromHandshake = handshake =>
-  handshake.headers['x-forwarded-for'] || handshake.address
+const db = new TopicsDB(DEFAULT_TOPIC)
 
-const getCountryFromHeaders = headers => {
-  const acceptLanguage = headers['accept-language']
-  const locale = acceptLanguage.split(',')[0]
-  const country = locale.split('-')[1]
-  return country
-}
-
-const topics = {}
-
-io.on('connection', socket => {
-  let protesterAdded = false
-
-  const ip = getIpFromHandshake(socket.handshake)
-  const country = getCountryFromHeaders(socket.handshake.headers)
+const onConnection = socket => {
+  socket.protesterAdded = false
 
   socket.on('add protester', ({ id, topic: dirtyTopic }) => {
-    // FIXME: do validation of server + client via same service
-    const topic = validator.isAlpha(dirtyTopic) ? dirtyTopic : 'world-hunger'
-    // FIXME: this 👇 is stupid, refactor
-    if (protesterAdded) return
-    if (topics[topic] === undefined) topics[topic] = {}
-    if (topics[topic].protesters === undefined) topics[topic].protesters = []
-    topics[topic].protesters.push({ id, ip, country })
-    protesterAdded = true
+    const topic = validator.isAlpha(dirtyTopic) ? dirtyTopic : DEFAULT_TOPIC
+
+    if (socket.protesterAdded) return
+
+    const ip =
+      socket.handshake.headers['x-forwarded-for'] || socket.handshake.address
+
+    const protester = { id, ip }
+    db.addProtester(topic, protester)
+
+    socket.protesterAdded = true
     socket.protesterId = id
     socket.topic = topic
     socket.join(topic)
-    io.to(socket.topic).emit('protester joined', {
-      id: socket.id,
-      protesters: topics[topic].protesters
+
+    io.to(topic).emit('protester joined', {
+      id,
+      protesters: db.getProtesters(socket.topic)
     })
   })
 
@@ -50,20 +43,17 @@ io.on('connection', socket => {
   })
 
   socket.on('disconnect', () => {
-    if (protesterAdded) {
-      const { protesters } = topics[socket.topic]
-      const index = protesters.findIndex(p => p.id === socket.protesterId)
-      if (index > -1) {
-        protesters.splice(index, 1)
-      }
-
+    if (socket.protesterAdded) {
+      db.removeProtester(socket.topic, socket.protesterId)
       socket.in(socket.topic).emit('protester left', {
         id: socket.protesterId,
-        protesters
+        protesters: db.getProtesters(socket.topic)
       })
     }
   })
-})
+}
+
+io.on('connection', onConnection)
 
 app.use(express.static(DIST_DIR))
 

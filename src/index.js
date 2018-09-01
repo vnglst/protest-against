@@ -1,4 +1,7 @@
 import './app.scss'
-import { initProtest } from './js/protest'
+import io from 'socket.io-client'
+import Protest from './js/protest'
 
-initProtest()
+const socket = io()
+const protest = new Protest(socket)
+protest.start()
