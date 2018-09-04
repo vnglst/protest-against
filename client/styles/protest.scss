@@ -1,6 +1,6 @@
 .app {
-  height: 100%;
-  display: flex 1px auto;
+  min-height: 100%;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: wrap;
+  flex-grow: 5;
 }
 
 .stats h1 {
@@ -55,15 +55,17 @@
   fill: $red;
 }
 
+.protest-button-container {
+  margin: 0 0 50px 0;
+}
+
 .footer {
-  margin: 100px 0 20px 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   & h2 {
     font-size: 16px;
   }
-  max-width: 400px;
 }
 
 .footer-container {
@@ -85,7 +87,7 @@
 }
 
 .footer .form-container {
-  margin: 10px 0 0 0;
+  margin: 10px 0;
   & a {
     color: $blue-light;
   }

@@ -18,6 +18,29 @@ export const renderProtesterCount = count => {
 }
 
 export const renderProtesters = ({ protesters, joined, myId }) => {
+  protesters = protesters
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .concat({ id: '1234' })
+    .reverse()
+
   const prosterContainerEl = document.getElementById('protesters')
   prosterContainerEl.innerHTML = ''
   protesters.forEach(protester => {
