@@ -97,9 +97,11 @@ input {
   width: 150px;
   padding: 0;
   background-color: inherit;
-  border: none;
   outline: 0;
   color: $blue;
+  border: none;
+  -webkit-appearance: none;
+  border-radius: 0;
   border-bottom: 1px solid $blue;
   text-transform: uppercase;
 }
