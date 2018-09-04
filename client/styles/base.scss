@@ -1,14 +1,3 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-
-  &:before,
-  &:after {
-    box-sizing: border-box;
-  }
-}
-
 html {
   font-size: responsive 8px 10px;
 }
@@ -18,8 +7,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-overflow-scrolling: touch;
   color: $gray-dark;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   overflow-x: hidden;
   visibility: visible;
   background: #141e30; /* fallback for old browsers */
@@ -53,20 +40,20 @@ button {
   transition: all 0.1s ease-in-out;
   background-color: $button-background;
   color: $gray-white;
-}
 
-button:hover {
-  top: 1px;
-  box-shadow: 0px 4px 0px 0px $button-color-dark, 0 11px 5px #000;
-}
+  &:hover {
+    top: 1px;
+    box-shadow: 0px 4px 0px 0px $button-color-dark, 0 11px 5px #000;
+  }
 
-button:active {
-  top: 10px;
-  box-shadow: 0px 2px 0px 0px $button-color-dark, 0 9px 5px #000;
-}
+  &:active {
+    top: 10px;
+    box-shadow: 0px 2px 0px 0px $button-color-dark, 0 9px 5px #000;
+  }
 
-button:focus {
-  outline: 0;
+  &:focus {
+    outline: 0;
+  }
 }
 
 a {

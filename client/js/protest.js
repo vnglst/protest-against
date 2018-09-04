@@ -1,9 +1,9 @@
-import Handler from './handler'
+import SocketHandler from './socket-handler'
 
 export default class Protest {
   constructor(socket) {
     this.socket = socket
-    this.handler = new Handler(socket)
+    this.handler = new SocketHandler(socket)
   }
 
   start() {
