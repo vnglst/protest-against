@@ -82,15 +82,6 @@ if (PROD) {
 
 if (DEV) {
   baseWebpack.devtool = 'source-map'
-  baseWebpack.devServer = {
-    inline: true,
-    host: 'localhost',
-    proxy: {
-      '/socket.io': {
-        target: 'http://localhost:3000'
-      }
-    }
-  }
 }
 
 module.exports = env => {
