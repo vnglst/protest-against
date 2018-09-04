@@ -63,16 +63,43 @@
   & h2 {
     font-size: 16px;
   }
+  max-width: 400px;
+}
+
+.footer-container {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .footer .topics {
   list-style: none;
   padding-left: 0;
+  margin: 10px 0 0 0;
+  padding: 0;
 
   & li {
     display: inline-block;
     margin-right: 20px;
   }
+}
+
+.footer .form-container {
+  margin: 10px 0 0 0;
+  & a {
+    color: $blue-light;
+  }
+}
+
+input {
+  width: 150px;
+  padding: 0;
+  background-color: inherit;
+  border: none;
+  outline: 0;
+  color: $blue;
+  border-bottom: 1px solid $blue;
+  text-transform: uppercase;
 }
 
 .shake-vertical {

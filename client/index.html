@@ -14,16 +14,26 @@
   <div class="app">
     <div class="main">
       <div class="stats">
-        <h1>There <span id="number-of-protesters"></span> protesting against <span class="topic" id="topic">TRUMP</span>right
+        <h1>There <span id="number-of-protesters">0 people</span> protesting against <span class="topic" id="topic">TRUMP</span>right
           now!
         </h1>
       </div>
-      <div class="protester-container" id="protesters"></div>
+      <div class="protester-container" id="protesters">
+      </div>
       <button id="protest-button">protest now</button>
     </div>
     <div class="footer">
       <h2>Currently active protests</h2>
-      <ul id="topics" class="topics"></ul>
+      <div class="footer-container">
+        <ul id="topics" class="topics">
+        </ul>
+        <div class="form-container">
+          <input id="new-topic" class="new-topic" maxlength="15" placeholder="trump" />
+          <a href="/?topic=hunger" id="new-topic-button">
+            start new
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </body>
