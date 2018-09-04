@@ -33,6 +33,15 @@ class TopicsDB {
     }
   }
 
+  getTopicsWithCounts() {
+    const topicNames = Object.keys(this.topics)
+    const topicsWithCounts = topicNames.map(topicName => ({
+      topicName,
+      protesterCount: this.topics[topicName].protesters.length
+    }))
+    return topicsWithCounts
+  }
+
   getProtesters(topic) {
     return this.topics[topic].protesters
   }

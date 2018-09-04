@@ -34,7 +34,8 @@ module.exports = class SocketListener {
 
       this.io.to(topic).emit('protester joined', {
         id,
-        protesters: this.db.getProtesters(socket.topic)
+        protesters: this.db.getProtesters(socket.topic),
+        topicsWithCounts: this.db.getTopicsWithCounts()
       })
     })
 
@@ -49,7 +50,8 @@ module.exports = class SocketListener {
         this.db.removeProtester(socket.topic, socket.protesterId)
         socket.in(socket.topic).emit('protester left', {
           id: socket.protesterId,
-          protesters: this.db.getProtesters(socket.topic)
+          protesters: this.db.getProtesters(socket.topic),
+          topicsWithCounts: this.db.getTopicsWithCounts()
         })
       }
     })

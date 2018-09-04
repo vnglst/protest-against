@@ -1,5 +1,6 @@
 html {
   font-size: responsive 8px 10px;
+  height: 100%;
 }
 
 body {
@@ -20,6 +21,18 @@ body {
     #243b55,
     #141e30
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Comfortaa', cursive;
+  color: white;
+  text-align: center;
 }
 
 $button-background: $red;
@@ -40,6 +53,7 @@ button {
   transition: all 0.1s ease-in-out;
   background-color: $button-background;
   color: $gray-white;
+  text-decoration: none;
 
   &:hover {
     top: 1px;

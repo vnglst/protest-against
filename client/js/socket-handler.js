@@ -25,15 +25,16 @@ export default class SocketHandler {
     dom.renderTopic(topic)
   }
 
-  handleJoin({ id, protesters }) {
-    this.updateApp({ id, protesters })
+  handleJoin(response) {
+    this.updateApp(response)
   }
 
-  handleLeave({ id, protesters }) {
-    this.updateApp({ id, protesters })
+  handleLeave(response) {
+    this.updateApp(response)
   }
 
-  updateApp({ id, protesters }) {
+  updateApp({ id, protesters, topicsWithCounts }) {
+    dom.renderTopics({ topicsWithCounts })
     dom.renderProtesterCount(protesters.length)
     dom.renderProtesters({ protesters, joined: id, myId: this.myId })
   }

@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 const SLIDE_IN_ANIMATION_TIME = 1000
 const PROTEST_TIME = 1000
 
@@ -42,6 +44,13 @@ export const renderProtesters = ({ protesters, joined, myId }) => {
 
     prosterContainerEl.appendChild(protesterEl)
   })
+
+  $('html, body').animate(
+    {
+      scrollTop: $('.current-user').offset().top
+    },
+    4000
+  )
 }
 
 const generateProtesterEl = id => {
@@ -60,6 +69,24 @@ export const renderProtesting = ({ id }) => {
   setTimeout(() => {
     activeProtesterEl.classList.remove('shake-vertical')
   }, PROTEST_TIME)
+}
+
+export const renderTopics = ({ topicsWithCounts }) => {
+  const topicsEl = document.getElementById('topics')
+  topicsEl.innerHTML = ''
+  const nonEmptyTopics = topicsWithCounts.filter(
+    topicWithCount => topicWithCount.protesterCount > 0
+  )
+  nonEmptyTopics.forEach(topicWithCount => {
+    const topicEl = document.createElement('li')
+    const topicLink = document.createElement('a')
+    topicLink.innerText = `${topicWithCount.topicName.toUpperCase()} (${
+      topicWithCount.protesterCount
+    })`
+    topicLink.setAttribute('href', `/?topic=${topicWithCount.topicName}`)
+    topicEl.appendChild(topicLink)
+    topicsEl.appendChild(topicEl)
+  })
 }
 
 const protesterSvg = `<svg version="1.1" id="protester" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"

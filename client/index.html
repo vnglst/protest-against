@@ -12,11 +12,19 @@
 
 <body>
   <div class="app">
-    <div class="stats">There <span id="number-of-protesters"></span> protesting against <span class="topic" id="topic">TRUMP</span>right
-      now!
+    <div class="main">
+      <div class="stats">
+        <h1>There <span id="number-of-protesters"></span> protesting against <span class="topic" id="topic">TRUMP</span>right
+          now!
+        </h1>
+      </div>
+      <div class="protester-container" id="protesters"></div>
+      <button id="protest-button">protest now</button>
     </div>
-    <button id="protest-button">protest now</button>
-    <div class="protester-container" id="protesters"></div>
+    <div class="footer">
+      <h2>Currently active protests</h2>
+      <ul id="topics" class="topics"></ul>
+    </div>
   </div>
 </body>
 
