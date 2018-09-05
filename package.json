@@ -30,13 +30,12 @@
     "build:analyze": "yarn build:stats; webpack-bundle-analyzer stats.json",
     "watch": "NODE_ENV=development webpack -w",
     "serve": "nodemon ./server/server.js",
-    "lint": "eslint **/*.js",
+    "lint": "eslint client/**/*.js, server/**/*.js, common/**/*.js",
     "format": "prettier --write '**/*.{js,css,md}'"
   },
   "dependencies": {
     "express": "^4.16.3",
     "howler": "^2.0.15",
-    "jquery": "^3.3.1",
     "query-string": "5",
     "socket.io": "^2.1.1",
     "validator": "^10.7.0"

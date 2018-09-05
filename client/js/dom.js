@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 const SLIDE_IN_ANIMATION_TIME = 1000
 const PROTEST_TIME = 1000
 
@@ -44,13 +42,6 @@ export const renderProtesters = ({ protesters, joined, myId }) => {
 
     prosterContainerEl.appendChild(protesterEl)
   })
-
-  $('html, body').animate(
-    {
-      scrollTop: $('.current-user').offset().top
-    },
-    2000
-  )
 }
 
 const generateProtesterEl = id => {
