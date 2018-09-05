@@ -1,6 +1,6 @@
 # Protest against
 
-Feel like protesting against some injustice? I created this somewhat silly web app using free open source technologies to make online protesting as easy and fun as possible!
+Feel like protesting against injustice? I created this (somewhat silly) web app using open source software to make this as easy and fun as possible!
 
 The default value is "TRUMP" but you can protest against any topic you like 📢
 
@@ -12,7 +12,7 @@ The source code is still very hacky since I wanted to get this out of the door, 
 
 https://magicdrums.now.sh
 
-That’s also probably a much better way to spent your time, but sometimes you gotta make a stand for your political cause.
+That’s also a much better way to spent your time, but sometimes you gotta make a stand for your political cause.
 
 Other credits:
 
