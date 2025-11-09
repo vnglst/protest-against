@@ -10,8 +10,7 @@ const PROD = process.env.NODE_ENV === 'production'
 const DEV = process.env.NODE_ENV === 'development'
 
 const copyFiles = [
-  { from: './client/media/', to: './media' },
-  { from: './client/images/', to: './images' }
+  { from: './client/media/', to: './media' }
 ]
 
 const baseWebpack = {
@@ -35,7 +34,13 @@ const baseWebpack = {
               sourceMap: true
             }
           },
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+              sourceMap: true
+            }
+          },
           'postcss-loader'
         ]
       },
