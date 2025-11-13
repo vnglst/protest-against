@@ -86,7 +86,7 @@ export class WebSocketHandler {
     clientData.protesterId = data.id;
     clientData.topic = topic;
 
-    // Broadcast to all clients in the same topic
+    // Broadcast to all clients in the same topic (including sender)
     this.broadcastToTopic(topic, {
       event: "protester joined",
       data: {
