@@ -30,11 +30,8 @@ deno task start
 
 ## Testing
 
-```bash
-# Run automated tests
-./test.sh
-
-# Or use the interactive tester
+Interactive WebSocket tester:
+```
 open http://localhost:3000/test-websocket.html
 ```
 
