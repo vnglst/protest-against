@@ -9,3 +9,11 @@ dist
 *.md
 .vscode
 .idea
+client
+server
+common
+webpack.config.js
+postcss.config.js
+package.json
+package-lock.json
+yarn.lock

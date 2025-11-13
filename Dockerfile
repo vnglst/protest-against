@@ -1,38 +1,21 @@
-# Build stage
-FROM node:16-alpine AS builder
+# Use Deno official image
+FROM denoland/deno:2.0.0
 
 WORKDIR /app
 
-# Copy package files
-COPY package.json package-lock.json ./
-
-# Install dependencies
-RUN npm ci
+# Copy dependency files
+COPY deno.json ./
 
 # Copy source code
-COPY . .
+COPY main.ts ./
+COPY src ./src
+COPY static ./static
 
-# Build the application
-RUN npm run build
-
-# Production stage
-FROM node:16-alpine
-
-WORKDIR /app
-
-# Copy package files
-COPY package.json package-lock.json ./
-
-# Install only production dependencies
-RUN npm ci --omit=dev
-
-# Copy built assets and server code
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/server ./server
-COPY --from=builder /app/common ./common
+# Cache dependencies
+RUN deno install --entrypoint main.ts
 
 # Expose port
 EXPOSE 3000
 
 # Start the server
-CMD ["node", "server/server.js"]
+CMD ["deno", "run", "--allow-net", "--allow-read", "--allow-env", "main.ts"]
