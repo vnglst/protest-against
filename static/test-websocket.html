@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket Test</title>
+  <style>
+    body {
+      font-family: monospace;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #0f0;
+    }
+    .log {
+      background: #000;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #0f0;
+      height: 400px;
+      overflow-y: auto;
+    }
+    .log div {
+      margin: 5px 0;
+    }
+    .success { color: #0f0; }
+    .error { color: #f00; }
+    .info { color: #0ff; }
+    button {
+      background: #0f0;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      font-family: monospace;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #0c0;
+    }
+  </style>
+</head>
+<body>
+  <h1>WebSocket Test Tool</h1>
+  <div>
+    <button onclick="connect()">Connect</button>
+    <button onclick="addProtester()">Add Protester</button>
+    <button onclick="protest()">Protest!</button>
+    <button onclick="disconnect()">Disconnect</button>
+    <button onclick="clearLog()">Clear Log</button>
+  </div>
+  <div class="log" id="log"></div>
+
+  <script>
+    let ws = null;
+    const myId = Date.now();
+
+    function log(message, type = 'info') {
+      const logDiv = document.getElementById('log');
+      const entry = document.createElement('div');
+      entry.className = type;
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      logDiv.appendChild(entry);
+      logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    function clearLog() {
+      document.getElementById('log').innerHTML = '';
+    }
+
+    function connect() {
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const wsUrl = `${protocol}//${window.location.host}/ws`;
+
+      log(`Connecting to ${wsUrl}...`, 'info');
+
+      ws = new WebSocket(wsUrl);
+
+      ws.onopen = () => {
+        log('✓ Connected to WebSocket', 'success');
+      };
+
+      ws.onmessage = (event) => {
+        try {
+          const message = JSON.parse(event.data);
+          log(`← Received: ${message.event}`, 'success');
+          log(`  Data: ${JSON.stringify(message.data)}`, 'info');
+        } catch (error) {
+          log(`← Received: ${event.data}`, 'info');
+        }
+      };
+
+      ws.onerror = (error) => {
+        log(`✗ WebSocket error: ${error}`, 'error');
+      };
+
+      ws.onclose = () => {
+        log('✓ Disconnected', 'info');
+      };
+    }
+
+    function addProtester() {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        log('✗ Not connected!', 'error');
+        return;
+      }
+
+      const message = {
+        event: 'add protester',
+        data: { id: myId, topic: 'trump' }
+      };
+
+      log(`→ Sending: ${message.event}`, 'info');
+      log(`  Data: ${JSON.stringify(message.data)}`, 'info');
+      ws.send(JSON.stringify(message));
+    }
+
+    function protest() {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        log('✗ Not connected!', 'error');
+        return;
+      }
+
+      const message = {
+        event: 'protesting',
+        data: {}
+      };
+
+      log(`→ Sending: ${message.event}`, 'success');
+      ws.send(JSON.stringify(message));
+    }
+
+    function disconnect() {
+      if (ws) {
+        ws.close();
+      }
+    }
+
+    log('Ready! Click "Connect" to start testing.', 'info');
+  </script>
+</body>
+</html>

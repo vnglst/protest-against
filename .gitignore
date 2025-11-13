@@ -8,3 +8,6 @@ Thumbs.db
 *.log
 dist/
 stats.json
+
+# Deno
+deno.lock

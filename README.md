@@ -1,30 +1,48 @@
-# Protest against
+# Protest Against
 
-Feel like protesting against injustice? I created this (somewhat silly) web app using open source software to make this as easy and fun as possible!
+Online protesting made easy! Join others in protesting against any topic in real-time.
 
-The default value is "TRUMP" but you can protest against any topic you like 📢
+## Quick Start
 
-The source code is still very hacky since I wanted to get this out of the door, but I’ll clean it up soon (I promise 😆).
+### Using Docker (Recommended)
+
+```bash
+docker-compose up
+```
+
+Open http://localhost:3000
+
+### Using Deno
+
+```bash
+# Install Deno
+curl -fsSL https://deno.land/install.sh | sh
+
+# Start the server
+deno task start
+```
+
+## Stack
+
+- **Backend**: Deno 2.0 + Hono + WebSockets
+- **Frontend**: Vanilla JavaScript (ES modules, no build!)
+- **Zero dependencies**, no webpack, no bundler
+
+## Testing
+
+Interactive WebSocket tester:
+```
+open http://localhost:3000/test-websocket.html
+```
+
+## Environment
+
+- `PORT` - Server port (default: 3000)
 
 ## Credits
 
-`Protest against` was inspired by Sara Vieira's (@NikkitaFTW) fun apps to create music together.
+Original by [Koen van Gilst](https://twitter.com/vnglst)
 
-https://magicdrums.now.sh
+Inspired by Sara Vieira's [@NikkitaFTW](https://twitter.com/NikkitaFTW) music apps
 
-That’s also a much better way to spent your time, but sometimes you gotta make a stand for your political cause.
-
-Other credits:
-
-- Boo sound: https://www.youtube.com/watch?v=rYAQN11a2Dc
-
-## Future
-
-I’ve got many ideas for improvements, like:
-
-- [ ] start a counterdemonstration on same page (two columns)
-- [ ] start a riot!
-- [ ] call the police (if many people do that the protest will be closed down!)
-- [ ] let protester shout short chat messages
-- [ ] more sound effects
-- [ ] custom protester icons!
+Boo sound: https://www.youtube.com/watch?v=rYAQN11a2Dc

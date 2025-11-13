@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Protest against - get organized and make a stand online!</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Protesting online has never been easier and more fun!">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      -moz-osx-font-smoothing: auto;
+      -webkit-font-smoothing: antialiased;
+      -webkit-overflow-scrolling: touch;
+      color: #333;
+      overflow-x: hidden;
+      visibility: visible;
+      background: #141e30;
+      background: linear-gradient(to right, #243b55, #141e30);
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Comfortaa', cursive;
+      color: white;
+      text-align: center;
+    }
+
+    button {
+      font-family: 'Comfortaa', cursive;
+      font-size: 14px;
+      font-weight: bold;
+      position: relative;
+      top: 0;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #0291a7;
+      cursor: pointer;
+      box-shadow: 0px 5px 0px 0px #026d7e, 0 12px 5px #000;
+      transition: all 0.1s ease-in-out;
+      background-color: #cc0000;
+      color: #fafafa;
+      text-decoration: none;
+    }
+
+    button:hover {
+      top: 1px;
+      box-shadow: 0px 4px 0px 0px #026d7e, 0 11px 5px #000;
+    }
+
+    button:active {
+      top: 10px;
+      box-shadow: 0px 2px 0px 0px #026d7e, 0 9px 5px #000;
+    }
+
+    button:focus {
+      outline: 0;
+    }
+
+    a {
+      color: #0291a7;
+      text-decoration: none;
+    }
+
+    a:focus, a:hover {
+      text-decoration: underline;
+    }
+
+    .app {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 5;
+    }
+
+    .stats h1 {
+      color: white;
+      margin: 20px 0;
+      font-size: 18px;
+      line-height: 38px;
+    }
+
+    .topic {
+      white-space: nowrap;
+      padding: 10px;
+      margin: 5px;
+      border: 1px dashed #fafafa;
+    }
+
+    .protester-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .protester {
+      padding-bottom: 10px;
+    }
+
+    .protester svg {
+      height: 80px;
+      width: 80px;
+      fill: #fafafa;
+    }
+
+    .protester p {
+      margin-top: 5px;
+      color: #fafafa;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .current-user svg {
+      fill: #cc0000;
+    }
+
+    .protest-button-container {
+      margin: 0 0 50px 0;
+    }
+
+    .footer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .footer h2 {
+      font-size: 16px;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      align-items: baseline;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .footer .topics {
+      list-style: none;
+      padding-left: 0;
+      margin: 10px 0 0 0;
+      padding: 0;
+    }
+
+    .footer .topics li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .footer .form-container {
+      margin: 20px 0;
+    }
+
+    .footer .form-container a {
+      color: #aceff9;
+    }
+
+    .footer .links {
+      margin-top: 40px;
+      font-size: 10px;
+      color: white;
+      align-self: center;
+      text-align: center;
+      max-width: 150px;
+    }
+
+    input {
+      width: 150px;
+      padding: 0;
+      background-color: inherit;
+      outline: 0;
+      color: #0291a7;
+      border: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      border-bottom: 1px solid #0291a7;
+      text-transform: uppercase;
+    }
+
+    .shake-vertical {
+      animation: shake-vertical 1s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+    }
+
+    .slide-in-right {
+      animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+
+    @keyframes slide-in-right {
+      0% {
+        transform: translateX(1000px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes shake-vertical {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      10%, 30%, 50%, 70% {
+        transform: translateY(-8px);
+      }
+      20%, 40%, 60% {
+        transform: translateY(8px);
+      }
+      80% {
+        transform: translateY(6.4px);
+      }
+      90% {
+        transform: translateY(-6.4px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="main">
+      <div class="stats">
+        <h1>There <span id="number-of-protesters">0 people</span> protesting against <span class="topic" id="topic">TRUMP</span> right now!</h1>
+      </div>
+      <div class="protester-container" id="protesters"></div>
+      <div class="protest-button-container">
+        <button id="protest-button">protest now</button>
+      </div>
+    </div>
+    <div class="footer">
+      <h2>Currently active protests</h2>
+      <div class="footer-container">
+        <ul id="topics" class="topics"></ul>
+        <div class="form-container">
+          <input id="new-topic" class="new-topic" maxlength="15" placeholder="trump" />
+          <a href="/?topic=hunger" id="new-topic-button">start new</a>
+        </div>
+      </div>
+      <span class="links">Created with free open source software by <a href="https://twitter.com/vnglst">@vnglst</a>. Source on <a href="https://github.com/vnglst/protest-against">Github</a>.</span>
+    </div>
+  </div>
+
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>
